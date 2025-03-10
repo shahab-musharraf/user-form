@@ -2,12 +2,23 @@ import { NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri);
+let client;
+let db;
+
+// Create a singleton connection
+async function connectDB() {
+    if (!client) {
+        client = new MongoClient(uri);
+        await client.connect();
+        db = client.db(process.env.DB_NAME);
+        console.log("Connected to MongoDB");
+    }
+    return db;
+}
 
 export async function GET(req) {
     try {
-        await client.connect();
-        const db = client.db(process.env.DB_NAME);
+        const db = await connectDB();
         const usersCollection = db.collection("users");
 
         const { searchParams } = new URL(req.url);
@@ -24,8 +35,7 @@ export async function GET(req) {
             sortOptions.createdAt = -1; // Newest first
         } else if (orderBy === "referralCount") {
             sortOptions.referralCount = -1; // Highest referral first
-        }
-        else if(orderBy === "notified"){
+        } else if (orderBy === "notified") {
             sortOptions.notified = -1;
         }
 
@@ -46,7 +56,5 @@ export async function GET(req) {
     } catch (error) {
         console.error("Error fetching users:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-    } finally {
-        await client.close();
     }
 }

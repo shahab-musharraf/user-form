@@ -105,6 +105,7 @@ const Index = () => {
   }
 
     const handleVerifyPayment = ( user:any, verify:Boolean ) => {
+
       setPaymentVerifying(true);
       fetch('/api/updateUser', {
         method: "PUT",
@@ -112,12 +113,12 @@ const Index = () => {
         body: JSON.stringify({...user, verify}) // Replace with actual mobile number
       })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => fetchUsers())
       .catch(error => console.error("Error:", error));
 
       setPaymentVerifying(false)
-      fetchUsers()
-      router.refresh()
+      
+      
   }
   const handleDeleteUser = (user:any) => {
     setDeleteUserLoading(true)

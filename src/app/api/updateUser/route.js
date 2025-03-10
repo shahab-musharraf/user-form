@@ -6,11 +6,11 @@ const client = new MongoClient(uri);
 
 export async function PUT(req) {
     try {
-        const { mobile, verify } = await req.json();
-
         await client.connect();
         const db = client.db(process.env.DB_NAME);
         const usersCollection = db.collection("users");
+        const { mobile, verify } = await req.json();
+
 
         const result = await usersCollection.updateOne(
             { mobile },

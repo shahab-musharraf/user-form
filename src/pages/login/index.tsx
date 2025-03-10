@@ -26,7 +26,7 @@ export default function LoginForm() {
     setError("");
 
 
-    if(formData?.username === "admin" && formData?.password === "admin"){
+    if(formData?.username === "Zenithkhan@#1234" && formData?.password === "Zenithpharmaindia"){
         localStorage.setItem("adminCredential",JSON.stringify(formData))
 
         router.push("/dashboard");
@@ -45,7 +45,7 @@ export default function LoginForm() {
     const adminCredentialStored= localStorage.getItem("adminCredential");
       if(adminCredentialStored){
         const storedAdmin = JSON.parse(adminCredentialStored);
-        if(storedAdmin?.username === "admin" && storedAdmin?.password === "admin"){
+        if(storedAdmin?.username === "Zenithkhan@#1234" && storedAdmin?.password === "Zenithpharmaindia"){
             router.push("/dashboard");
         }
         else {

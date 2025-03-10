@@ -1,6 +1,7 @@
 
 'use client';
 
+import PaymentModal from '@/components/PaymentModal';
 import ThankYou from '@/pages/ThankYou';
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
@@ -96,7 +97,6 @@ export default function HomePage() {
       });
 
       const result = await response.json();
-      console.log(result, 'yyyyyyyyyyyy');
 
       if (result.success) {
         formData.qrCode = result.imageUrl;
@@ -201,6 +201,7 @@ export default function HomePage() {
 
     sessionStorage.setItem("userData", JSON.stringify(formData))
     // setPaymentLoading(true);
+    setOpenModal(true)
     
     
   };
@@ -220,15 +221,18 @@ export default function HomePage() {
     }
   }, [])
 
+  const [openModal, setOpenModal] = useState(false);
+
   // console.log(sessionStorage.getItem('userData'), formData)
   return (
-    <div>
+    <>
+      <div>
+      <div>
       
 
       {(
         <div
           style={{
-            position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
@@ -237,6 +241,7 @@ export default function HomePage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            padding:'20px'
           }}
         >
           <div
@@ -611,7 +616,8 @@ export default function HomePage() {
                     justifyContent: formData?.qrCodeFile ? 'space-between' : 'center',
                     alignItems:'center',
                     gap: formData?.qrCodeFile ? '10px' : 0,
-                    borderRadius: '5px'
+                    borderRadius: '5px',
+                    marginTop:'5px'
 
                   }}
                 >
@@ -701,5 +707,9 @@ export default function HomePage() {
       )}
       {thankyouPopup && <ThankYou referCode = {formData.uniqueCode} setThankyouPopup = {setThankyouPopup}/>}
     </div>
+      </div>
+
+      {openModal && <PaymentModal setOpenModal={setOpenModal} />}
+    </>
   );
 }
