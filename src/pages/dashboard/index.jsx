@@ -22,11 +22,13 @@ const Index = () => {
       setIsLoading(true);
       const response = await fetch(`/api/getAllUser?page=${page}&limit=50&orderBy=${orderBy}`);
       // if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+      console.log(response, 'fetchUser response')
       if(!response.ok){
         alert('Something went wrong')
         return;
       }
       const data = await response.json();
+      console.log(data, 'fetchUser data')
       setUsers(data?.users);
       setTotalPages(data?.totalPages);
       setTotalUsers(data?.totalUsers)

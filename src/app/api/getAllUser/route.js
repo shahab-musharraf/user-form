@@ -18,6 +18,7 @@ async function connectDB() {
 
 export async function GET(req) {
     try {
+        console.log(uri, 'fetchUser MONGODB_URI')
         const db = await connectDB();
         const usersCollection = db.collection("users");
 
