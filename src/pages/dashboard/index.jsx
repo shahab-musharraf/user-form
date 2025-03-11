@@ -43,8 +43,11 @@ const Index = () => {
     }
 
 
-    fetchUsers();
-  }, [page, orderBy, fetchUsers, router]);
+    else {
+      fetchUsers();
+    }
+  }, [page, orderBy, router]);
+
 
   const handleLogout = () => {
     localStorage.removeItem("adminCredential");
@@ -130,11 +133,10 @@ const Index = () => {
       body: JSON.stringify(user)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => fetchUsers())
     .catch(error => {console.log(error)})
 
-    fetchUsers()
-    router.refresh();
+    
     setDeleteUserLoading(false);
   }
   return (
