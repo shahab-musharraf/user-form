@@ -209,11 +209,11 @@ const Index = () => {
                       ) : header === "createdAt" ? (
                         new Date(user[header])?.toLocaleDateString() + " " + new Date(user[header])?.toLocaleTimeString()
                       ) : header === "screenshot" ? (
-                        <Link target="_blank" href={window.location.href?.split("/")[0] + user[header]}>
+                        <Link target="_blank" href={user[header]}>
                           view
                         </Link>
                       ) : header === "qrCode" ? (
-                        user[header] ? <Link target="_blank" href={window.location.href?.split("/")[0] + user[header]}>
+                        user[header] ? <Link target="_blank" href={user[header]}>
                           view
                         </Link> : '-'): (
                         user[header] === "" ? '-' : user[header]

@@ -44,7 +44,11 @@ export default function HomePage() {
 
   const [imageUploaded, setImageUploaded] = useState(false)
   const [qrUploaded, setQrUploaded] = useState(false)
+
+  const [uploadImageLoading, setUploadImageLoading] = useState(false);
+  const [uploadQrLoading, setUploadQrLoading] = useState(false);
   const handleImageUpload = async (e) => {
+    setUploadImageLoading(true);
     if(!formData?.amount){
       alert("Please do payment first")
       return
@@ -67,18 +71,22 @@ export default function HomePage() {
 
       if (result.success) {
         formData.screenshot = result.imageUrl;
+        // setFormData({...formData, screenshot: result.imageUrl})
         setImageUploaded(true)
       } else {
         alert(`Upload failed: ${result.error}`);
       }
+      setUploadImageLoading(false);
     } catch (error) {
       console.error('Error uploading file:', error);
+      setUploadImageLoading(false);
     }
     
   }
 
 
   const handleQrUpload = async (e) => {
+    setUploadQrLoading(true);
     if(!formData?.amount){
       alert("Please do payment first")
       return
@@ -104,8 +112,10 @@ export default function HomePage() {
       } else {
         alert(`Upload failed: ${result.error}`);
       }
+      setUploadQrLoading(false);
     } catch (error) {
       console.error('Error uploading file:', error);
+      setUploadQrLoading(false);
     }
     
   }
@@ -569,7 +579,7 @@ export default function HomePage() {
                             color: '#fff',
                             borderRadius: '0 5px 5px 0',
                             cursor: 'pointer',
-                            fontSize: '13px',}} type='button' onClick={handleImageUpload}>Upload</button>
+                            fontSize: '13px',}} type='button' onClick={handleImageUpload}>{uploadImageLoading? 'wait...': 'Upload'}</button>
                         
                       </div>
                     )
@@ -643,7 +653,7 @@ export default function HomePage() {
                             color: '#fff',
                             borderRadius: '0 5px 5px 0',
                             cursor: 'pointer',
-                            fontSize: '13px',}} type='button' onClick={handleQrUpload}>Upload QR</button>
+                            fontSize: '13px',}} type='button' onClick={handleQrUpload}>{uploadQrLoading? 'wait...' : 'Upload QR'}</button>
                         
                       </div>
                     )
@@ -663,7 +673,10 @@ export default function HomePage() {
                 </label>
               </div> : <div style={{display:'flex', justifyContent:'space-between' , alignItems:'center'}}>
                   <p style={{color: 'green'}}>QR Uploaded Successfully!</p>
-                <img src={formData?.qrCode} width={100} height={100}/>
+                  {formData?.qrCode && formData?.qrCode !== "" ? (
+                      <img src={formData?.qrCode} width={100} height={100} alt="Uploaded QR Code" />
+                    ) : null}
+
               </div>
               }
 
