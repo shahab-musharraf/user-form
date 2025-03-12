@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import cloudinary from 'cloudinary';
 import { v2 as cloudinaryV2 } from 'cloudinary';
 import { Readable } from 'stream';  // Import Readable from 'stream'
 
