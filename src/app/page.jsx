@@ -489,6 +489,21 @@ export default function HomePage() {
                     marginTop: '10px',
                   }}
                 >
+                <button
+                    type="button"
+                    onClick={() => addAmount(55)}
+                    style={{
+                      flex: 1,
+                      padding: '10px',
+                      border: '1px solid #ddd',
+                      background: '#f8f9fa',
+                      borderRadius: '5px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                    }}
+                  >
+                    +55$
+                  </button>
                   <button
                     type="button"
                     onClick={() => addAmount(100)}
@@ -519,21 +534,7 @@ export default function HomePage() {
                   >
                     +200$
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => addAmount(500)}
-                    style={{
-                      flex: 1,
-                      padding: '10px',
-                      border: '1px solid #ddd',
-                      background: '#f8f9fa',
-                      borderRadius: '5px',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                    }}
-                  >
-                    +500$
-                  </button>
+                  
                 </div>
               </div>}
               {
